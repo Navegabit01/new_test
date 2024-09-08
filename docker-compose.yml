@@ -1,0 +1,33 @@
+services:
+  db:
+    image: mysql:5.7
+    container_name: myproject_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  web:
+    build: .
+    container_name: myproject_web
+    command: python manage.py runserver 0.0.0.0:9191
+    volumes:
+      - .:/app
+    ports:
+      - "9191:9191"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_NAME=mydatabase
+      - DATABASE_USER=myuser
+      - DATABASE_PASSWORD=mypassword
+      - DATABASE_HOST=db
+      - DATABASE_PORT=3306
+
+volumes:
+  db_data:
