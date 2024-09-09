@@ -25,6 +25,7 @@ class OrderTests(TestCase):
         self.order_data = {
             'created_at': '2024-09-01T00:00:00Z'
         }
+        print(self.item)
         self.items_data = [{'item_id': self.item.id, 'quantity': 2}]
 
     def test_create_order(self):
