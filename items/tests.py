@@ -12,7 +12,7 @@ class ItemTests(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.user = User.objects.create_user(username='root', password='Fisyb8o9h*2024')
-	print(self.user)
+        print(self.user)
         self.client.force_authenticate(user=self.user)  # Autenticación JWT
         self.item_data = {
             'reference': 'REF123',
