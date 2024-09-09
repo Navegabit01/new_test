@@ -1,6 +1,6 @@
 services:
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     container_name: myproject_db
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
@@ -10,12 +10,15 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3308:3308"
 
   web:
     build: .
     container_name: myproject_web
-    command: python manage.py runserver 0.0.0.0:9191
+    command: >
+      sh -c "python -m pip install -r requirements.txt && 
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:9191"
     volumes:
       - .:/app
     ports:
@@ -24,10 +27,10 @@ services:
       - db
     environment:
       - DATABASE_NAME=mydatabase
-      - DATABASE_USER=myuser
-      - DATABASE_PASSWORD=mypassword
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=rootpassword
       - DATABASE_HOST=db
-      - DATABASE_PORT=3306
+      - DATABASE_PORT=3308
 
 volumes:
   db_data:
