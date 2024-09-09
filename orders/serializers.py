@@ -8,11 +8,11 @@ class ItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    item = ItemSerializer()  # Asegúrate de que este campo se llama `item` en tu modelo OrderItem
+    item = ItemSerializer()  # Serializa el `Item` relacionado
 
     class Meta:
         model = OrderItem
-        fields = ['item__name', 'quantity']  # Asegúrate de que estos campos existan en tu modelo OrderItem
+        fields = ['item', 'quantity']  # Incluye los campos correctos
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
