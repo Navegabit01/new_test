@@ -11,6 +11,9 @@ class ItemViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         use_case = CreateItemUseCase(request.data)
-        item = use_case.execute()
-        serializer = self.get_serializer(item.item)
-        return Response(serializer.data, status=201)
+        item_adapter = use_case.execute()
+        serializer = self.get_serializer(item_adapter.item)
+        data = serializer.data
+        data['price_with_tax'] = item_adapter.calculate_price_with_tax()
+        return Response(data, status=201)
+

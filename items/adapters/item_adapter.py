@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from ..models import Item
 
 class ItemAdapter:
@@ -14,4 +16,5 @@ class ItemAdapter:
         return self.item.tax
 
     def calculate_price_with_tax(self):
-        return self.get_price_without_tax() * (1 + self.get_tax() / 100)
+        return self.get_price_without_tax() * (Decimal(1) + self.get_tax() / Decimal(100))
+

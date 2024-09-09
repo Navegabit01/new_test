@@ -12,7 +12,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderItem
-        fields = ['item', 'quantity']  # Asegúrate de que estos campos existan en tu modelo OrderItem
+        fields = ['item__name', 'quantity']  # Asegúrate de que estos campos existan en tu modelo OrderItem
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
