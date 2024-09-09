@@ -33,7 +33,7 @@ class OrderTests(TestCase):
             {
                 'created_at': '2024-09-01T00:00:00Z',
                 'order':self.order_data,
-                'items': [{'item': self.item.id, 'quantity': 2}]}, format='json')
+                'items': self.items_data}, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Order.objects.count(), 1)
 
