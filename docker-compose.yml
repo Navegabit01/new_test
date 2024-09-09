@@ -5,12 +5,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: mydatabase
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootpassword
     volumes:
       - db_data:/var/lib/mysql
     ports:
-      - "3308:3308"
+      - "3306:3306"
 
   web:
     build: .

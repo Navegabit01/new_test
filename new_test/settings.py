@@ -39,18 +39,25 @@ INSTALLED_APPS = [
     'rest_framework',
     'items',
     'orders',
-    'corsheaders'
+    'corsheaders',
+    'drf_spectacular',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+INTERNAL_IPS = [
+    '127.0.0.1',
 ]
 
 ROOT_URLCONF = 'new_test.urls'
@@ -83,7 +90,7 @@ DATABASES = {
         'NAME': 'mydatabase',
         'USER': 'root',
         'PASSWORD': 'rootpassword',
-        'HOST': 'db',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
@@ -115,6 +122,15 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
 }
 
 SIMPLE_JWT = {

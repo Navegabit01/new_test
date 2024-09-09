@@ -4,12 +4,11 @@ from items.models import Item
 
 
 class CreateOrderUseCase:
-    def __init__(self, order_data, items_data):
-        self.order_data = order_data
+    def __init__(self, items_data):
         self.items_data = items_data
 
     def execute(self):
-        order = Order.objects.create(**self.order_data)
+        order = Order.objects.create()
         for item_data in self.items_data:
             item = Item.objects.get(id=item_data['item_id'])
             OrderItem.objects.create(order=order, item=item, quantity=item_data['quantity'])
