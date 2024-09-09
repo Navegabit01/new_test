@@ -1,12 +1,19 @@
-from django.test import TestCase
+# orders/tests.py
+
+from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
 from rest_framework import status
+from django.test import TestCase
 from .models import Order, OrderItem
 from items.models import Item
+
+User = get_user_model()
 
 class OrderTests(TestCase):
     def setUp(self):
         self.client = APIClient()
+        self.user = User.objects.create_user(username='root', password='Fisyb8o9h*2024')
+        self.client.force_authenticate(user=self.user)  # Autenticación JWT
         self.item = Item.objects.create(
             reference='REF123',
             name='Test Item',
@@ -30,3 +37,4 @@ class OrderTests(TestCase):
         response = self.client.get(f'/api/orders/{order.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['items']), 1)
+
