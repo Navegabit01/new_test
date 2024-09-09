@@ -28,7 +28,12 @@ class OrderTests(TestCase):
         self.items_data = [{'item_id': self.item.id, 'quantity': 2}]
 
     def test_create_order(self):
-        response = self.client.post(reverse('order-list'), {'created_at': '2024-09-01T00:00:00Z', 'items': [{'item': self.item.id, 'quantity': 2}]}, format='json')
+        response = self.client.post(
+            reverse('order-list'),
+            {
+                'created_at': '2024-09-01T00:00:00Z',
+                'order':self.order_data,
+                'items': [{'item': self.item.id, 'quantity': 2}]}, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Order.objects.count(), 1)
 
