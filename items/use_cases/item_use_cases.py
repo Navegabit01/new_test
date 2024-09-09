@@ -7,6 +7,7 @@ class CreateItemUseCase:
 
     def execute(self):
         # Validaciones básicas
+        self.item_data['price_without_tax'] = float(self.item_data['price_without_tax'])
         if self.item_data['price_without_tax'] < 0:
             raise ValueError("El precio no puede ser negativo.")
         if not (0 <= self.item_data['tax'] <= 100):
