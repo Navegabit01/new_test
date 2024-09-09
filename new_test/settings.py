@@ -90,8 +90,11 @@ DATABASES = {
         'NAME': 'mydatabase',
         'USER': 'root',
         'PASSWORD': 'rootpassword',
-        'HOST': '127.0.0.1',
+        'HOST': 'db',
         'PORT': '3306',
+        'OPTIONS': {
+            'client_flag': 0x0008,  # Enable support for public key retrieval
+        },
     }
 }
 
